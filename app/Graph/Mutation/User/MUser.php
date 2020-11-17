@@ -4,7 +4,6 @@
 namespace App\Graph\Mutation\User;
 
 
-use App\Business\User\Entity\QueryObject\CreateUserQo;
 use App\Business\User\Service\UserService;
 use App\Graph\Type\User\TAddUser;
 use App\Support\GraphQL\Definition\ObjectType;

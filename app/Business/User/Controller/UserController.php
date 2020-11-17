@@ -21,55 +21,5 @@ use Hyperf\HttpServer\Request;
  */
 class UserController extends AbstractController
 {
-    /**
-     * @Inject()
-     * @var UserService
-     */
-    protected UserService $userService;
 
-    /**
-     * @GetMapping("/user")
-     * @JwtAuth()
-     * @return ResultVo
-     */
-    public function getUserInfo(): ResultVo
-    {
-        $userInfo = $this->userService->getUserInfo(AuthHelper::getPayload()->userId);
-        return ResultVo::success($userInfo);
-    }
-
-    /**
-     * @PostMapping(path="/user")
-     * @param Request $request
-     * @return ResultVo
-     */
-    public function createUser(Request $request): ResultVo
-    {
-        $createUserQo = new CreateUserQo(
-            $this->validateRequest(
-                [
-                    'mobile' => 'required',
-                    'verifyCode' => 'required',
-                    'password' => 'min:6',
-                ],
-                [
-                    'password.min' => '密码不能小于6位',
-                ],
-                [
-                    'mobile' => '手机号码',
-                    'verifyCode' => '验证码',
-                ]
-            )
-        );
-
-        $createUserQo->mobilePrefix = $request->input('mobilePrefix', 86);
-
-        $user = $this->userService->createUser($createUserQo);
-        $token = $this->userService->generateToken($user);
-
-        return ResultVo::success([
-            'userId' => $user->id,
-            'token' => $token,
-        ]);
-    }
 }
