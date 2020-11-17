@@ -6,4 +6,4 @@
 
 3. php watch -c 或者 ./watch -c
 
-4. graph访问http://localhost:8888/api/graph/1
+4. graph访问http://localhost:8888/api/graph/1   内有UserDemo可参考
